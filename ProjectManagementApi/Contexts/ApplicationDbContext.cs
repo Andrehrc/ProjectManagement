@@ -10,12 +10,18 @@ namespace ProjectManagementApi.Contexts
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<UserRefreshToken> RefreshTokens { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<DevelopmentStage> DevelopmentStages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.SetarConfigRecado();
+            modelBuilder.ConfigureUserRefreshToken();
+            modelBuilder.ConfigureEmployeeProject();
+            modelBuilder.ConfigureProjectDevelopmentStages();
             modelBuilder.Seed();
         }
     }
@@ -29,19 +35,19 @@ namespace ProjectManagementApi.Contexts
             {
                 new User {
                     Id = 1,
-                    Username = "User1",
+                    Name = "User1",
                     Email ="user1email@test.com",
-                    Password = "teste",
-                    ConfirmationToken = Guid.NewGuid().ToString(),
+                    Password = "C2DaT6BcRZ3t/+RkPJJZXg==",
+                    ConfirmationToken = Guid.NewGuid(),
                     EmailConfirmed = false
                 },
                 new User
                 {
                     Id = 2,
-                    Username = "User2",
+                    Name = "User2",
                     Email ="user2email@test.com",
-                    Password = "teste",
-                    ConfirmationToken = Guid.NewGuid().ToString(),
+                    Password = "C2DaT6BcRZ3t/+RkPJJZXg==",
+                    ConfirmationToken = Guid.NewGuid(),
                     EmailConfirmed = false
                 }
             });
