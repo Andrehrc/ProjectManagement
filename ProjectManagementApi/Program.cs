@@ -8,6 +8,7 @@ using ProjectManagementApi.Repositories;
 using ProjectManagementApi.Repositories.Interfaces;
 using ProjectManagementApi.Services;
 using ProjectManagementApi.Services.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 using System.Runtime;
 using System.Text;
 
@@ -50,6 +51,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IEncryptDecryptService, EncryptDecryptService>();
 
 var app = builder.Build();
 
@@ -61,6 +64,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 app.UseAuthentication();
 app.UseAuthorization();
